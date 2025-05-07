@@ -140,110 +140,87 @@ def get_departments():
 
 @app.get("/departments/{department_id}", response_model=Department)
 def get_department(department_id: int):
-    logger.info(f"Fetching department with ID: {department_id}")
+    logger.info(f"Buscando departamento com ID: {department_id}")
     departments = ler_dados_xml_department()
     for department in departments:
         if department.id == department_id:
             return department
-    raise HTTPException(status_code=404, detail="Department not found")
+    raise HTTPException(status_code=404, detail="Departamento não encontrado")
 @app.put("/departments/{department_id}", response_model=Department)
 
 @app.put("/departments/{department_id}", response_model=Department)
 def update_department(department_id: int, department: Department):
-    logger.info(f"Updating department with ID: {department_id}")
+    logger.info(f"Atualizando documento com ID: {department_id}")
     departments = ler_dados_xml_department()
     for i, dep in enumerate(departments):
         if dep.id == department_id:
             departments[i] = department
             escrever_dados_xml_department(departments)
             return department
-    raise HTTPException(status_code=404, detail="Department not found")
+    raise HTTPException(status_code=404, detail="Departamento não encontrado")
 
 @app.delete("/departments/{department_id}")
 def delete_department(department_id: int):
-    logger.info(f"Deleting department with ID: {department_id}")
+    logger.info(f"Deletando apartamento com ID: {department_id}")
     departments = ler_dados_xml_department()
     for i, dep in enumerate(departments):
         if dep.id == department_id:
             del departments[i]
             escrever_dados_xml_department(departments)
-            return {"message": "Department deleted successfully"}
-    raise HTTPException(status_code=404, detail="Department not found")
-
-@app.get("/pay_rolls", response_model=List[PayRoll])
-def get_pay_rolls():
-    logger.info("Fetching all pay rolls")
-    return ler_dados_xml_pay_roll()
-
-@app.post("/pay_rolls", response_model=PayRoll)
-def create_pay_roll(pay_roll: PayRoll):
-    logger.info(f"Creating pay roll: {pay_roll}")
-    pay_rolls = ler_dados_xml_pay_roll()
-    pay_rolls.append(pay_roll)
-    escrever_dados_xml_pay_roll(pay_rolls)
-    return pay_roll
-
-@app.get("/pay_rolls/{pay_roll_id}", response_model=PayRoll)
-def get_pay_roll(pay_roll_id: int):
-    logger.info(f"Fetching pay roll with ID: {pay_roll_id}")
-    pay_rolls = ler_dados_xml_pay_roll()
-    for pay_roll in pay_rolls:
-        if pay_roll.id == pay_roll_id:
-            return pay_roll
-    raise HTTPException(status_code=404, detail="Pay roll not found")
-
-@app.put("/pay_rolls/{pay_roll_id}", response_model=PayRoll)
-def update_pay_roll(pay_roll_id: int, pay_roll: PayRoll):
-    logger.info(f"Updating pay roll with ID: {pay_roll_id}")
-    pay_rolls = ler_dados_xml_pay_roll()
-    for i, pr in enumerate(pay_rolls):
-        if pr.id == pay_roll_id:
-            pay_rolls[i] = pay_roll
-            escrever_dados_xml_pay_roll(pay_rolls)
-            return pay_roll
-    raise HTTPException(status_code=404, detail="Pay roll not found")
+            return {"message": "Departamento deleatado com sucesso"}
+    raise HTTPException(status_code=404, detail="Departamento não entrado")
 
 @app.get("/employees", response_model=List[Employee])
 def get_employees():
-    logger.info("Fetching all employees")
+    logger.info("Buscando todos os funcionários")
     return ler_dados_xml_employee()
 
-@app.post("/employees", response_model=Employee)
+@app.post("/employee", response_model=Employee)    
 def create_employee(employee: Employee):
+    department = ler_dados_xml_department()
+    if not any(department.id == employee.id_department for department in department):
+        raise HTTPException(status_code=400, detail="Departamento não encontrado")
     logger.info(f"Creating employee: {employee}")
-    employees = ler_dados_xml_employee()
-    employees.append(employee)
-    escrever_dados_xml_employee(employees)
-    return employee
+    try:
+        employees = ler_dados_xml_employee()
+        employees.append(employee)
+        escrever_dados_xml_employee(employees)
+        return employee
+    except Exception as e:
+        logger.error(f"Erro ao criar funcionário: {e}")
+        raise HTTPException(status_code=500, detail="Erro interno ao criar funcionário")
+
 
 @app.get("/employees/{employee_id}", response_model=Employee)
 def get_employee(employee_id: int):
-    logger.info(f"Fetching employee with ID: {employee_id}")
+    logger.info(f"Deletando funcionário com ID: {employee_id}")
     employees = ler_dados_xml_employee()
     for employee in employees:
         if employee.id == employee_id:
             return employee
-    raise HTTPException(status_code=404, detail="Employee not found")
+    raise HTTPException(status_code=404, detail="Funcionario não encontrado")
+
+@app.delete("/employees/{employee_id}")
+def delete_employee(employee_id: int):
+    logger.info(f"Deletando funcionario com ID: {employee_id}")
+    employees = ler_dados_xml_employee()
+    for i, emp in enumerate(employees):
+        if emp.id == employee_id:
+            del employees[i]
+            escrever_dados_xml_employee(employees)
+            return {"message": "Funcionario deletado com sucesso"}
+    raise HTTPException(status_code=404, detail="Funcionario não encontrado")
 
 @app.put("/employees/{employee_id}", response_model=Employee)
-def update_employee(employee_id: int, employee: Employee):
-    logger.info(f"Updating employee with ID: {employee_id}")
+def updage_employee(employee_id: int, employee: Employee):
+    department = ler_dados_xml_department()
+    if not any(department.id == employee.id_department for department in department):
+        raise HTTPException(status_code=400, detail="Departamento não encontrado")
+    logger.info(f"Atualizando funcionário com ID: {employee_id}")
     employees = ler_dados_xml_employee()
     for i, emp in enumerate(employees):
         if emp.id == employee_id:
             employees[i] = employee
             escrever_dados_xml_employee(employees)
             return employee
-    raise HTTPException(status_code=404, detail="Employee not found")
-
-@app.delete("/employees/{employee_id}")
-def delete_employee(employee_id: int):
-    logger.info(f"Deleting employee with ID: {employee_id}")
-    employees = ler_dados_xml_employee()
-    for i, emp in enumerate(employees):
-        if emp.id == employee_id:
-            del employees[i]
-            escrever_dados_xml_employee(employees)
-            return {"message": "Employee deleted successfully"}
-    raise HTTPException(status_code=404, detail="Employee not found")
-
+    raise HTTPException(status_code=404, detail="Funcionario não encontrado")
