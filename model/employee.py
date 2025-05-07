@@ -7,4 +7,4 @@ class Employee(BaseModel):
     name: str
     cpf: str
     position: str
-    admissionDate: date
+    admission_date: date

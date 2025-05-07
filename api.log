@@ -1,0 +1,38 @@
+2025-05-06 20:45:34,080 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-06 20:45:41,959 - INFO - Fetching all departments
+2025-05-06 20:45:51,506 - INFO - Fetching all departments
+2025-05-06 20:45:53,268 - INFO - Fetching all departments
+2025-05-06 20:46:34,765 - INFO - Fetching all departments
+2025-05-06 20:49:53,708 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-06 20:53:10,981 - INFO - Creating department: id=1 name='Tecnologia da Informacao' manager='Joao Silva' location='Sao Paulo' number_of_employees=25
+2025-05-06 20:53:25,361 - INFO - Creating department: id=1 name='Tecnologia da Informacao' manager='Joao Silva' location='Sao Paulo' number_of_employees=25
+2025-05-06 21:03:03,745 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-06 21:03:46,068 - INFO - Updating department with ID: 1
+2025-05-06 21:04:51,529 - INFO - Deleting department with ID: 1
+2025-05-06 21:05:14,560 - INFO - Creating department: id=1 name='Tecnologia da Informacao' manager='Joao Silva' location='Sao Paulo' number_of_employees=25
+2025-05-06 21:05:25,085 - INFO - Fetching all departments
+2025-05-06 21:07:22,180 - INFO - Fetching all departments
+2025-05-06 21:07:28,740 - INFO - Fetching all departments
+2025-05-06 21:07:49,356 - INFO - Fetching all departments
+2025-05-06 21:07:55,979 - INFO - Fetching all departments
+2025-05-06 21:09:59,203 - INFO - Creating department: id=2 name='Recursos Humanos' manager='Maria Oliveira' location='Rio de Janeiro' number_of_employees=12
+2025-05-06 21:10:21,725 - INFO - Fetching all departments
+2025-05-06 21:12:09,640 - INFO - Fetching all departments
+2025-05-06 21:12:34,588 - INFO - Fetching all departments
+2025-05-06 21:12:42,549 - INFO - Fetching all departments
+2025-05-06 21:13:07,368 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
+2025-05-06 21:13:34,797 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
+2025-05-06 21:15:15,865 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
+2025-05-06 21:15:15,865 - ERROR - Erro ao criar departamento: 500: Arquivo XML de departamentos está corrompido.
+2025-05-06 21:16:16,487 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
+2025-05-06 21:16:16,497 - ERROR - Erro ao criar departamento: cannot serialize 22 (type int)
+2025-05-06 21:16:29,096 - INFO - Fetching all departments
+2025-05-06 21:16:29,098 - ERROR - Erro ao ler departamentos: 500: Arquivo XML de departamentos está corrompido.
+2025-05-06 21:19:47,188 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
+2025-05-06 21:19:47,196 - ERROR - Erro ao criar departamento: cannot serialize 22 (type int)
+2025-05-06 21:23:26,639 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
+2025-05-06 21:23:48,441 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-06 21:27:55,162 - INFO - Fetching all departments
+2025-05-06 21:28:04,918 - INFO - Deleting department with ID: 5
+2025-05-06 21:28:20,747 - INFO - Fetching department with ID: 1
+2025-05-06 21:28:45,686 - INFO - Updating department with ID: 1

@@ -4,8 +4,8 @@ from pydantic import BaseModel
 
 class PayRoll(BaseModel):
     id: int
-    employeeId: int
+    employee_id: int
     discounts: float
-    netSalary: float
-    grossSalary: float
-    referenceMonth: date
+    net_salary: float
+    gross_salary: float
+    reference_month: date
