@@ -1,2 +1,17 @@
-<?xml version='1.0' encoding='utf-8'?>
-<departments><department><id>1</id><name>Tecnologia da Informação</name><manager>João Silva</manager><location>São Paulo</location><number_of_employees>30</number_of_employees></department></departments>
+<?xml version="1.0" ?>
+<departments>
+  <department>
+    <id>1</id>
+    <name>Tecnologia da Informacao</name>
+    <manager>Joao Silva</manager>
+    <location>Sao Paulo</location>
+    <number_of_employees>25</number_of_employees>
+  </department>
+  <department>
+    <id>2</id>
+    <name>Recursos Humanos</name>
+    <manager>Jose Vinicius</manager>
+    <location>Sao Paulo</location>
+    <number_of_employees>20</number_of_employees>
+  </department>
+</departments>

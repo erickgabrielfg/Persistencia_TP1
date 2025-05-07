@@ -1,3 +1,4 @@
+from xml.dom import minidom
 from fastapi import FastAPI, HTTPException
 from typing import List
 from pathlib import Path
@@ -8,6 +9,25 @@ from model.department import Department
 from model.employee import Employee
 from model.pay_roll import PayRoll
 from xml.etree.ElementTree import ParseError
+
+"""
+{
+  "id": 1,
+  "name": "Tecnologia da Informacao",
+  "manager": "Joao Silva",
+  "location": "Sao Paulo",
+  "number_of_employees": 25
+}
+{
+  "id": 1,
+   "id_department": 1,
+  "name": "Ana Oliveira",
+  "cpf": "123.456.789-00",
+  "position": "Analista de Sistemas",
+  "admission_date": "2022-08-15"
+}
+
+"""
 
 app = FastAPI()
 
@@ -51,9 +71,13 @@ def escrever_dados_xml_department(departments):
         ET.SubElement(elem, "location").text = department.location
         ET.SubElement(elem, "number_of_employees").text = str(department.number_of_employees)
 
-    tree = ET.ElementTree(root)
-    with open(ARQUIVO_DEPARTMENT, "wb") as file:
-        tree.write(file, encoding="utf-8", xml_declaration=True)
+    xml_str = ET.tostring(root, encoding='utf-8')
+
+    parsed = minidom.parseString(xml_str)
+    pretty_xml_as_string = parsed.toprettyxml(indent="  ")
+
+    with open(ARQUIVO_DEPARTMENT, "w") as file:
+        file.write(pretty_xml_as_string)
 
 def ler_dados_xml_pay_roll():
     pay_rolls = []
@@ -83,24 +107,36 @@ def escrever_dados_xml_pay_roll(pay_rolls):
         ET.SubElement(elem, "gross_salary").text = str(pay_roll.gross_salary)
         ET.SubElement(elem, "reference_month").text = pay_roll.reference_month
 
-    tree = ET.ElementTree(root)
-    with open(ARQUIVO_PAY_ROLL, "wb") as file:
-        tree.write(file, encoding="utf-8", xml_declaration=True)
+    xml_str = ET.tostring(root, encoding='utf-8')
+
+    parsed = minidom.parseString(xml_str)
+    pretty_xml_as_string = parsed.toprettyxml(indent="  ")
+
+    with open(ARQUIVO_PAY_ROLL, "w") as file:
+        file.write(pretty_xml_as_string)
 
 def ler_dados_xml_employee():
     employees = []
     if os.path.exists(ARQUIVO_EMPLOYEE):
-        tree = ET.parse(ARQUIVO_EMPLOYEE)
-        root = tree.getroot()
-        for elem in root.findall("employee"):
-            employee = Employee(
-                id=int(elem.find("id").text),
-                name=elem.find("name").text,
-                cpf=elem.find("cpf").text,
-                position=elem.find("position").text,
-                admission_date=elem.find("admission_date").text
-            )
-            employees.append(employee)
+        if os.path.getsize(ARQUIVO_EMPLOYEE) == 0:
+            root = ET.Element("employees")
+            tree = ET.ElementTree(root)
+            tree.write(ARQUIVO_EMPLOYEE)
+        try:
+            tree = ET.parse(ARQUIVO_EMPLOYEE)
+            root = tree.getroot()
+            for elem in root.findall("employee"):
+                employee = Employee(
+                    id=int(elem.find("id").text),
+                    id_department=int(elem.find("id_department").text),
+                    name=elem.find("name").text,
+                    cpf=elem.find("cpf").text,
+                    position=elem.find("position").text,
+                    admission_date=elem.find("admission_date").text
+                )
+                employees.append(employee)
+        except ParseError:
+            raise HTTPException(status_code=500, detail="Arquivo XML de funcionários está corrompido.")
     return employees
 
 def escrever_dados_xml_employee(employees):
@@ -108,14 +144,19 @@ def escrever_dados_xml_employee(employees):
     for employee in employees:
         elem = ET.SubElement(root, "employee")
         ET.SubElement(elem, "id").text = str(employee.id)
+        ET.SubElement(elem, "id_department").text = str(employee.id_department)
         ET.SubElement(elem, "name").text = employee.name
         ET.SubElement(elem, "cpf").text = employee.cpf
         ET.SubElement(elem, "position").text = employee.position
-        ET.SubElement(elem, "admission_date").text = employee.admission_date
+        ET.SubElement(elem, "admission_date").text = employee.admission_date.isoformat()
 
-    tree = ET.ElementTree(root)
-    with open(ARQUIVO_EMPLOYEE, "wb") as file:
-        tree.write(file, encoding="utf-8", xml_declaration=True)
+    xml_str = ET.tostring(root, encoding='utf-8')
+
+    parsed = minidom.parseString(xml_str)
+    pretty_xml_as_string = parsed.toprettyxml(indent="  ")
+
+    with open(ARQUIVO_EMPLOYEE, "w") as file:
+        file.write(pretty_xml_as_string)
 
 @app.post("/departments", response_model=Department)    
 def create_department(department: Department):
