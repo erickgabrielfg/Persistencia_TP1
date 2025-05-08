@@ -6,7 +6,7 @@ from logger import logger
 from services.pay_roll_service import read_csv_pay_roll, write_csv_pay_roll
 from services.employee_service import get_all_employees_ids
 
-router = APIRouter()
+router = APIRouter(prefix="/pay_rolls", tags=["Folha de Pagamentos"])
 
 @router.post("/pay_roll", response_model=PayRoll)
 def create_pay_roll(pay_roll: PayRoll):
