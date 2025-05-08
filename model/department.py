@@ -5,4 +5,4 @@ class Department(BaseModel):
     name: str
     manager: str
     location: str
-    numberOfEmployees: int
+    number_of_employees: int
