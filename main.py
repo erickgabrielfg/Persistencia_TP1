@@ -1,267 +1,219 @@
-from xml.dom import minidom
 from fastapi import FastAPI, HTTPException
 from typing import List
 from pathlib import Path
 from logger import logger
-import os
-import xml.etree.ElementTree as ET
+import csv
 from model.department import Department
 from model.employee import Employee
 from model.pay_roll import PayRoll
-from xml.etree.ElementTree import ParseError
-
-"""
-{
-  "id": 1,
-  "name": "Tecnologia da Informacao",
-  "manager": "Joao Silva",
-  "location": "Sao Paulo",
-  "number_of_employees": 25
-}
-{
-  "id": 1,
-   "id_department": 1,
-  "name": "Ana Oliveira",
-  "cpf": "123.456.789-00",
-  "position": "Analista de Sistemas",
-  "admission_date": "2022-08-15"
-}
-
-"""
-
 app = FastAPI()
 
 PASTA_DADOS = Path("data")
 PASTA_DADOS.mkdir(exist_ok=True)
 
-ARQUIVO_DEPARTMENT = PASTA_DADOS / "department.xml"
-ARQUIVO_PAY_ROLL = PASTA_DADOS / "pay_roll.xml"
-ARQUIVO_EMPLOYEE = PASTA_DADOS / "employee.xml"
+ARQUIVO_DEPARTMENT = PASTA_DADOS / "department.csv"
+ARQUIVO_EMPLOYEE = PASTA_DADOS / "employee.csv"
+ARQUIVO_PAY_ROLL = PASTA_DADOS / "pay_roll.csv"
 
-def ler_dados_xml_department():
+def ler_dados_csv_department():
     departments = []
-    if os.path.exists(ARQUIVO_DEPARTMENT):
-        if os.path.getsize(ARQUIVO_DEPARTMENT) == 0:
-            root = ET.Element("departments")
-            tree = ET.ElementTree(root)
-            tree.write(ARQUIVO_DEPARTMENT)
-        try:
-            tree = ET.parse(ARQUIVO_DEPARTMENT)
-            root = tree.getroot()
-            for elem in root.findall("department"):
-                department = Department(
-                    id=int(elem.find("id").text),
-                    name=elem.find("name").text,
-                    manager=elem.find("manager").text,
-                    location=elem.find("location").text,
-                    number_of_employees=int(elem.find("number_of_employees").text)  
-                )
-                departments.append(department)
-        except ParseError:
-            raise HTTPException(status_code=500, detail="Arquivo XML de departamentos está corrompido.")
+    if ARQUIVO_DEPARTMENT.exists() and ARQUIVO_DEPARTMENT.stat().st_size > 0:
+        with open(ARQUIVO_DEPARTMENT, mode="r", newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                departments.append(Department(
+                    id=int(row["id"]),
+                    name=row["name"],
+                    manager=row["manager"],
+                    location=row["location"],
+                    number_of_employees=int(row["number_of_employees"])
+                ))
     return departments
 
-def escrever_dados_xml_department(departments):
-    root = ET.Element("departments")
-    for department in departments:
-        elem = ET.SubElement(root, "department")
-        ET.SubElement(elem, "id").text = str(department.id)
-        ET.SubElement(elem, "name").text = department.name
-        ET.SubElement(elem, "manager").text = department.manager
-        ET.SubElement(elem, "location").text = department.location
-        ET.SubElement(elem, "number_of_employees").text = str(department.number_of_employees)
+def escrever_dados_csv_department(departments):
+    with open(ARQUIVO_DEPARTMENT, mode="w", newline="", encoding="utf-8") as csvfile:
+        fieldnames = ["id", "name", "manager", "location", "number_of_employees"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for d in departments:
+            writer.writerow(d.model_dump())
 
-    xml_str = ET.tostring(root, encoding='utf-8')
-
-    parsed = minidom.parseString(xml_str)
-    pretty_xml_as_string = parsed.toprettyxml(indent="  ")
-
-    with open(ARQUIVO_DEPARTMENT, "w") as file:
-        file.write(pretty_xml_as_string)
-
-def ler_dados_xml_pay_roll():
-    pay_rolls = []
-    if os.path.exists(ARQUIVO_PAY_ROLL):
-        tree = ET.parse(ARQUIVO_PAY_ROLL)
-        root = tree.getroot()
-        for elem in root.findall("pay_roll"):
-            pay_roll = PayRoll(
-                id=int(elem.find("id").text),
-                employee_id=int(elem.find("employee_id").text),
-                discounts=float(elem.find("discounts").text),
-                net_salary=float(elem.find("net_salary").text),
-                gross_salary=float(elem.find("gross_salary").text),
-                reference_month=elem.find("reference_month").text
-            )
-            pay_rolls.append(pay_roll)
-    return pay_rolls
-
-def escrever_dados_xml_pay_roll(pay_rolls):
-    root = ET.Element("pay_rolls")
-    for pay_roll in pay_rolls:
-        elem = ET.SubElement(root, "pay_roll")
-        ET.SubElement(elem, "id").text = str(pay_roll.id)
-        ET.SubElement(elem, "employee_id").text = str(pay_roll.employee_id)
-        ET.SubElement(elem, "discounts").text = str(pay_roll.discounts)
-        ET.SubElement(elem, "net_salary").text = str(pay_roll.net_salary)
-        ET.SubElement(elem, "gross_salary").text = str(pay_roll.gross_salary)
-        ET.SubElement(elem, "reference_month").text = pay_roll.reference_month
-
-    xml_str = ET.tostring(root, encoding='utf-8')
-
-    parsed = minidom.parseString(xml_str)
-    pretty_xml_as_string = parsed.toprettyxml(indent="  ")
-
-    with open(ARQUIVO_PAY_ROLL, "w") as file:
-        file.write(pretty_xml_as_string)
-
-def ler_dados_xml_employee():
+def ler_dados_csv_employee():
     employees = []
-    if os.path.exists(ARQUIVO_EMPLOYEE):
-        if os.path.getsize(ARQUIVO_EMPLOYEE) == 0:
-            root = ET.Element("employees")
-            tree = ET.ElementTree(root)
-            tree.write(ARQUIVO_EMPLOYEE)
-        try:
-            tree = ET.parse(ARQUIVO_EMPLOYEE)
-            root = tree.getroot()
-            for elem in root.findall("employee"):
-                employee = Employee(
-                    id=int(elem.find("id").text),
-                    id_department=int(elem.find("id_department").text),
-                    name=elem.find("name").text,
-                    cpf=elem.find("cpf").text,
-                    position=elem.find("position").text,
-                    admission_date=elem.find("admission_date").text
-                )
-                employees.append(employee)
-        except ParseError:
-            raise HTTPException(status_code=500, detail="Arquivo XML de funcionários está corrompido.")
+    if ARQUIVO_EMPLOYEE.exists() and ARQUIVO_EMPLOYEE.stat().st_size > 0:
+        with open(ARQUIVO_EMPLOYEE, mode="r", newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                employees.append(Employee(
+                    id=int(row["id"]),
+                    id_department=int(row["id_department"]),
+                    name=row["name"],
+                    cpf=row["cpf"],
+                    position=row["position"],
+                    admission_date=row["admission_date"]
+                ))
     return employees
 
-def escrever_dados_xml_employee(employees):
-    root = ET.Element("employees")
-    for employee in employees:
-        elem = ET.SubElement(root, "employee")
-        ET.SubElement(elem, "id").text = str(employee.id)
-        ET.SubElement(elem, "id_department").text = str(employee.id_department)
-        ET.SubElement(elem, "name").text = employee.name
-        ET.SubElement(elem, "cpf").text = employee.cpf
-        ET.SubElement(elem, "position").text = employee.position
-        ET.SubElement(elem, "admission_date").text = employee.admission_date.isoformat()
+def escrever_dados_csv_employee(employees):
+    with open(ARQUIVO_EMPLOYEE, mode="w", newline="", encoding="utf-8") as csvfile:
+        fieldnames = ["id", "id_department", "name", "cpf", "position", "admission_date"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for e in employees:
+            writer.writerow(e.model_dump())
 
-    xml_str = ET.tostring(root, encoding='utf-8')
+def ler_dados_csv_pay_roll():
+    pay_rolls = []
+    if ARQUIVO_PAY_ROLL.exists() and ARQUIVO_PAY_ROLL.stat().st_size > 0:
+        with open(ARQUIVO_PAY_ROLL, mode="r", newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                pay_rolls.append(PayRoll(
+                    id=int(row["id"]),
+                    discounts=float(row["discounts"]),
+                    net_salary=float(row["net_salary"]),
+                    gross_salary=float(row["gross_salary"]),
+                    reference_month=row["reference_month"]
+                ))
+    return pay_rolls
 
-    parsed = minidom.parseString(xml_str)
-    pretty_xml_as_string = parsed.toprettyxml(indent="  ")
+def escrever_dados_csv_pay_roll(pay_rolls):
+    with open(ARQUIVO_PAY_ROLL, mode="w", newline="", encoding="utf-8") as csvfile:
+        fieldnames = ["id", "discounts", "net_salary", "gross_salary", "reference_month"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for p in pay_rolls:
+            writer.writerow(p.model_dump())
 
-    with open(ARQUIVO_EMPLOYEE, "w") as file:
-        file.write(pretty_xml_as_string)
-
-@app.post("/departments", response_model=Department)    
+@app.post("/departments", response_model=Department)
 def create_department(department: Department):
-    logger.info(f"Creating department: {department}")
-    try:
-        departments = ler_dados_xml_department()
-        departments.append(department)
-        escrever_dados_xml_department(departments)
-        return department
-    except Exception as e:
-        logger.error(f"Erro ao criar departamento: {e}")
-        raise HTTPException(status_code=500, detail="Erro interno ao criar departamento")
+    departments = ler_dados_csv_department()
+    departments.append(department)
+    escrever_dados_csv_department(departments)
+    logger.info("Departamento criado com sucesso")
+    return department
 
 @app.get("/departments", response_model=List[Department])
 def get_departments():
-    logger.info("Buscando todos os departamentos")
-    try:
-        return ler_dados_xml_department()
-    except Exception as e:
-        logger.error(f"Erro ao ler departamentos: {e}")
-        raise HTTPException(status_code=500, detail="Erro interno ao obter departamentos")
+    logger.info("Retornando todos os departamentos")
+    return ler_dados_csv_department()
 
 @app.get("/departments/{department_id}", response_model=Department)
 def get_department(department_id: int):
-    logger.info(f"Buscando departamento com ID: {department_id}")
-    departments = ler_dados_xml_department()
-    for department in departments:
-        if department.id == department_id:
-            return department
+    for d in ler_dados_csv_department():
+        if d.id == department_id:
+            logger.info("Retornando departamento de ID:", department_id)
+            return d
     raise HTTPException(status_code=404, detail="Departamento não encontrado")
-@app.put("/departments/{department_id}", response_model=Department)
 
 @app.put("/departments/{department_id}", response_model=Department)
 def update_department(department_id: int, department: Department):
-    logger.info(f"Atualizando documento com ID: {department_id}")
-    departments = ler_dados_xml_department()
-    for i, dep in enumerate(departments):
-        if dep.id == department_id:
+    departments = ler_dados_csv_department()
+    for i, d in enumerate(departments):
+        if d.id == department_id:
             departments[i] = department
-            escrever_dados_xml_department(departments)
+            escrever_dados_csv_department(departments)
+            logger.info(f"Departamento com ID {department_id} atualizado com sucesso")
             return department
     raise HTTPException(status_code=404, detail="Departamento não encontrado")
 
 @app.delete("/departments/{department_id}")
 def delete_department(department_id: int):
-    logger.info(f"Deletando apartamento com ID: {department_id}")
-    departments = ler_dados_xml_department()
-    for i, dep in enumerate(departments):
-        if dep.id == department_id:
+    departments = ler_dados_csv_department()
+    for i, d in enumerate(departments):
+        if d.id == department_id:
             del departments[i]
-            escrever_dados_xml_department(departments)
-            return {"message": "Departamento deleatado com sucesso"}
-    raise HTTPException(status_code=404, detail="Departamento não entrado")
+            escrever_dados_csv_department(departments)
+            logger.info(f"Departamento com ID {department_id} deletado com sucesso")
+            return {"message": "Departamento deletado com sucesso"}
+    raise HTTPException(status_code=404, detail="Departamento não encontrado")
+
+@app.post("/employee", response_model=Employee)
+def create_employee(employee: Employee):
+    if not any(d.id == employee.id_department for d in ler_dados_csv_department()):
+        raise HTTPException(status_code=400, detail="Departamento não encontrado")
+    employees = ler_dados_csv_employee()
+    employees.append(employee)
+    escrever_dados_csv_employee(employees)
+    logger.info("Funcionário criado com sucesso")
+    return employee
 
 @app.get("/employees", response_model=List[Employee])
 def get_employees():
-    logger.info("Buscando todos os funcionários")
-    return ler_dados_xml_employee()
-
-@app.post("/employee", response_model=Employee)    
-def create_employee(employee: Employee):
-    department = ler_dados_xml_department()
-    if not any(department.id == employee.id_department for department in department):
-        raise HTTPException(status_code=400, detail="Departamento não encontrado")
-    logger.info(f"Creating employee: {employee}")
-    try:
-        employees = ler_dados_xml_employee()
-        employees.append(employee)
-        escrever_dados_xml_employee(employees)
-        return employee
-    except Exception as e:
-        logger.error(f"Erro ao criar funcionário: {e}")
-        raise HTTPException(status_code=500, detail="Erro interno ao criar funcionário")
-
+    logger.info("Retornando todos os funcionários")
+    return ler_dados_csv_employee()
 
 @app.get("/employees/{employee_id}", response_model=Employee)
 def get_employee(employee_id: int):
-    logger.info(f"Deletando funcionário com ID: {employee_id}")
-    employees = ler_dados_xml_employee()
-    for employee in employees:
-        if employee.id == employee_id:
+    for e in ler_dados_csv_employee():
+        if e.id == employee_id:
+            logger.info(f"Retornando funcionário de ID: {employee_id}")
+            return e
+    raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+
+@app.put("/employees/{employee_id}", response_model=Employee)
+def update_employee(employee_id: int, employee: Employee):
+    if not any(d.id == employee.id_department for d in ler_dados_csv_department()):
+        raise HTTPException(status_code=400, detail="Departamento não encontrado")
+    employees = ler_dados_csv_employee()
+    for i, e in enumerate(employees):
+        if e.id == employee_id:
+            employees[i] = employee
+            escrever_dados_csv_employee(employees)
+            logger.info(f"Funcionário com ID {employee_id} atualizado com sucesso")
             return employee
-    raise HTTPException(status_code=404, detail="Funcionario não encontrado")
+    raise HTTPException(status_code=404, detail="Funcionário não encontrado")
 
 @app.delete("/employees/{employee_id}")
 def delete_employee(employee_id: int):
-    logger.info(f"Deletando funcionario com ID: {employee_id}")
-    employees = ler_dados_xml_employee()
-    for i, emp in enumerate(employees):
-        if emp.id == employee_id:
+    employees = ler_dados_csv_employee()
+    for i, e in enumerate(employees):
+        if e.id == employee_id:
             del employees[i]
-            escrever_dados_xml_employee(employees)
-            return {"message": "Funcionario deletado com sucesso"}
-    raise HTTPException(status_code=404, detail="Funcionario não encontrado")
+            escrever_dados_csv_employee(employees)
+            logger.info(f"Funcionário com ID {employee_id} deletado com sucesso")
+            return {"message": "Funcionário deletado com sucesso"}
+    raise HTTPException(status_code=404, detail="Funcionário não encontrado")
 
-@app.put("/employees/{employee_id}", response_model=Employee)
-def updage_employee(employee_id: int, employee: Employee):
-    department = ler_dados_xml_department()
-    if not any(department.id == employee.id_department for department in department):
-        raise HTTPException(status_code=400, detail="Departamento não encontrado")
-    logger.info(f"Atualizando funcionário com ID: {employee_id}")
-    employees = ler_dados_xml_employee()
-    for i, emp in enumerate(employees):
-        if emp.id == employee_id:
-            employees[i] = employee
-            escrever_dados_xml_employee(employees)
-            return employee
-    raise HTTPException(status_code=404, detail="Funcionario não encontrado")
+@app.post("/pay_roll", response_model=PayRoll)
+def create_pay_roll(pay_roll: PayRoll):
+    pay_rolls = ler_dados_csv_pay_roll()
+    pay_rolls.append(pay_roll)
+    escrever_dados_csv_pay_roll(pay_rolls)
+    logger.info("Folha de pagamento criada com sucesso")
+    return pay_roll
+
+@app.get("/pay_rolls", response_model=List[PayRoll])
+def get_pay_rolls():
+    logger.info("Listando todas as folhas de pagamento")
+    return ler_dados_csv_pay_roll()
+
+@app.get("/pay_rolls/{pay_roll_id}", response_model=PayRoll)
+def get_pay_roll(pay_roll_id: int):
+    logger.info("Retornando folha de ID:", pay_roll_id)
+    for p in ler_dados_csv_pay_roll():
+        if p.id == pay_roll_id:
+            return p
+    raise HTTPException(status_code=404, detail="Folha de pagamento não encontrada")
+
+@app.put("/pay_rolls/{pay_roll_id}", response_model=PayRoll)
+def update_pay_roll(pay_roll_id: int, pay_roll: PayRoll):
+    pay_rolls = ler_dados_csv_pay_roll()
+    for i, p in enumerate(pay_rolls):
+        if p.id == pay_roll_id:
+            pay_rolls[i] = pay_roll
+            escrever_dados_csv_pay_roll(pay_rolls)
+            logger.info(f"Folha de pagamento com ID {pay_roll_id} atualizada com sucesso")
+            return pay_roll
+    raise HTTPException(status_code=404, detail="Folha de pagamento não encontrada")
+
+@app.delete("/pay_rolls/{pay_roll_id}")
+def delete_pay_roll(pay_roll_id: int):
+    pay_rolls = ler_dados_csv_pay_roll()
+    for i, p in enumerate(pay_rolls):
+        if p.id == pay_roll_id:
+            del pay_rolls[i]
+            escrever_dados_csv_pay_roll(pay_rolls)
+            logger.info(f"Folha de pagamento com ID {pay_roll_id} deletada com sucesso")
+            return {"message": "Folha de pagamento deletada com sucesso"}
+    raise HTTPException(status_code=404, detail="Folha de pagamento não encontrada")

@@ -1,0 +1,12 @@
+id,name,manager,location,number_of_employees
+0,Tecnologia de informacao,JP,Fortaleza,30
+1,Recursos Humanos,Alice Souza,São Paulo,3
+2,Financeiro,Carlos Lima,São Paulo,2
+3,TI,Fernanda Rocha,Curitiba,4
+4,Marketing,Bruno Torres,Rio de Janeiro,3
+5,Vendas,Juliana Prado,Belo Horizonte,5
+6,Jurídico,Tatiane Borges,Brasília,2
+7,Operações,Diego Martins,Porto Alegre,3
+8,Logística,Marina Nunes,Campinas,4
+9,Pesquisa,Hugo Silveira,Florianópolis,2
+10,Suporte,Renata Alves,Recife,4

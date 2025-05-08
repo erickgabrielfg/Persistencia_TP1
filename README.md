@@ -93,4 +93,4 @@ Projeto desenvolvido para a disciplina de **Desenvolvimento de Software para Per
 
 ## 🚀 Como Executar
 
-uvicorn main:app -reload
+uvicorn main:app --reload
