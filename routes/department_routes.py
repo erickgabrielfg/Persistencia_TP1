@@ -4,7 +4,7 @@ from model.department import Department
 from services.department_service import read_csv_department, write_csv_department
 from logger import logger
 
-router = APIRouter()
+router = APIRouter(prefix="/departments", tags=["Departamentos"])
 
 @router.post("/departments", response_model=Department)
 def create_department(department: Department):

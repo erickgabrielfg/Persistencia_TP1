@@ -5,7 +5,7 @@ from services.employee_service import read_csv_employee, write_csv_employee
 from services.department_service import read_csv_department
 from logger import logger
 
-router = APIRouter()
+router = APIRouter(prefix="/employees", tags=["Funcionários"])
 
 @router.post("/employee", response_model=Employee)
 def create_employee(employee: Employee):
