@@ -80,3 +80,15 @@
 2025-05-07 21:24:27,093 - INFO - Retornando todos os departamentos
 2025-05-07 21:25:37,842 - INFO - Retornando departamento de ID: 1
 2025-05-07 21:25:48,829 - INFO - Departamento criado com sucesso
+2025-05-08 15:40:19,096 - INFO - Retornando todos os funcionários
+2025-05-08 15:49:22,075 - INFO - Folha de pagamento com ID 1 adicionada com sucesso
+2025-05-08 15:50:46,598 - INFO - Retornando todas as folhas de pagamento
+2025-05-08 15:51:40,427 - INFO - Retornando todas as folhas de pagamento
+2025-05-08 15:51:48,981 - INFO - Retornando todas as folhas de pagamento
+2025-05-08 15:52:40,705 - INFO - Retornando folha de pagamento com ID: 1
+2025-05-08 15:54:06,651 - INFO - Folha de Pagamento com ID 1 atualizada com sucesso
+2025-05-08 15:54:15,414 - INFO - Retornando todas as folhas de pagamento
+2025-05-08 15:54:41,941 - INFO - Folha de pagamento com ID 1 deletada com sucesso
+2025-05-08 15:54:44,442 - INFO - Retornando todas as folhas de pagamento
+2025-05-08 15:56:52,479 - INFO - Folha de pagamento com ID 1 adicionada com sucesso
+2025-05-08 15:57:13,445 - INFO - Retornando todas as folhas de pagamento

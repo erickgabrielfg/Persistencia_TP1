@@ -30,3 +30,12 @@ def write_csv_employee(employees):
         writer.writeheader()
         for e in employees:
             writer.writerow(e.model_dump())
+
+def get_all_employees_ids():
+    employees_ids = []
+    employees = read_csv_employee()
+
+    for emp in employees:
+        employees_ids.append(emp.id)
+
+    return employees_ids
