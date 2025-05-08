@@ -7,7 +7,7 @@ PASTA_DADOS.mkdir(exist_ok=True)
 
 ARQUIVO_EMPLOYEE = PASTA_DADOS / "employee.csv"
 
-def ler_dados_csv_employee():
+def read_csv_employee():
     employees = []
     if ARQUIVO_EMPLOYEE.exists() and ARQUIVO_EMPLOYEE.stat().st_size > 0:
         with open(ARQUIVO_EMPLOYEE, mode="r", newline="", encoding="utf-8") as csvfile:
@@ -23,7 +23,7 @@ def ler_dados_csv_employee():
                 ))
     return employees
 
-def escrever_dados_csv_employee(employees):
+def write_csv_employee(employees):
     with open(ARQUIVO_EMPLOYEE, mode="w", newline="", encoding="utf-8") as csvfile:
         fieldnames = ["id", "id_department", "name", "cpf", "position", "admission_date"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
