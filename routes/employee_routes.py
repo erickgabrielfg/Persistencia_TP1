@@ -21,12 +21,17 @@ def create_employee(employee: Employee):
     logger.info("Funcionário criado com sucesso")
     return employee
 
-@router.get("/employees", response_model=List[Employee])
+@router.get("/quantity")
+def count_employees():
+    count = len(read_csv_employee())
+    return { "quantidade": count }
+
+@router.get("/", response_model=List[Employee])
 def get_employees():
     logger.info("Retornando todos os funcionários")
     return read_csv_employee()
 
-@router.get("/employees/{employee_id}", response_model=Employee)
+@router.get("/{employee_id}", response_model=Employee)
 def get_employee(employee_id: int):
     for e in read_csv_employee():
         if e.id == employee_id:
@@ -34,7 +39,7 @@ def get_employee(employee_id: int):
             return e
     raise HTTPException(status_code=404, detail="Funcionário não encontrado")
 
-@router.put("/employees/{employee_id}", response_model=Employee)
+@router.put("/{employee_id}", response_model=Employee)
 def update_employee(employee_id: int, employee: Employee):
     if not any(d.id == employee.id_department for d in read_csv_department()):
         raise HTTPException(status_code=400, detail="Departamento não encontrado")
@@ -47,7 +52,7 @@ def update_employee(employee_id: int, employee: Employee):
             return employee
     raise HTTPException(status_code=404, detail="Funcionário não encontrado")
 
-@router.delete("/employees/{employee_id}")
+@router.delete("/{employee_id}")
 def delete_employee(employee_id: int):
     employees = read_csv_employee()
     for i, e in enumerate(employees):
@@ -58,7 +63,7 @@ def delete_employee(employee_id: int):
             return {"message": "Funcionário deletado com sucesso"}
     raise HTTPException(status_code=404, detail="Funcionário não encontrado")
 
-@router.get("/employees/name", response_model=List[Employee])
+@router.get("/name", response_model=List[Employee])
 def get_employee_by_name(name: str):
     employees = read_csv_employee()
     if not name:
@@ -69,7 +74,7 @@ def get_employee_by_name(name: str):
     logger.info(f"Retornando funcionários com o nome: {name}")
     return filtered_employees
 
-@router.get("/employees/cpf", response_model=Employee)
+@router.get("/cpf", response_model=Employee)
 def get_employee_by_cpf(cpf: str):
     employees = read_csv_employee()
     if not cpf:
@@ -80,7 +85,7 @@ def get_employee_by_cpf(cpf: str):
             return e
     raise HTTPException(status_code=404, detail="Funcionário não encontrado")
 
-@router.get("/employees/department/{department_id}", response_model=List[Employee])
+@router.get("/department/{department_id}", response_model=List[Employee])
 def get_employees_by_department(department_id: int):
     employees = read_csv_employee()
     if not department_id:
@@ -91,7 +96,7 @@ def get_employees_by_department(department_id: int):
     logger.info(f"Retornando funcionários do departamento com ID: {department_id}")
     return filtered_employees
 
-@router.get("employees/zip")
+@router.get("/zip")
 def get_employees_zip():
     departments = read_csv_employee()
     if not departments:

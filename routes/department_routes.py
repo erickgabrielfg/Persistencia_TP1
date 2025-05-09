@@ -10,7 +10,7 @@ import csv
 
 router = APIRouter(prefix="/departments", tags=["Departamentos"])
 
-@router.post("/departments", response_model=Department)
+@router.post("/department", response_model=Department)
 def create_department(department: Department):
     departments = read_csv_department()
     departments.append(department)
@@ -18,12 +18,17 @@ def create_department(department: Department):
     logger.info("Departamento criado com sucesso")
     return department
 
-@router.get("/departments", response_model=List[Department])
+@router.get("/quantity")
+def count_departments():
+    count = len(read_csv_department())
+    return {"quantidade": count}
+
+@router.get("/", response_model=List[Department])
 def get_departments():
     logger.info("Retornando todos os departamentos")
     return read_csv_department()
 
-@router.get("/departments/{department_id}", response_model=Department)
+@router.get("/{department_id}", response_model=Department)
 def get_department(department_id: int):
     for d in read_csv_department():
         if d.id == department_id:
@@ -31,7 +36,7 @@ def get_department(department_id: int):
             return d
     raise HTTPException(status_code=404, detail="Departamento não encontrado")
 
-@router.put("/departments/{department_id}", response_model=Department)
+@router.put("/{department_id}", response_model=Department)
 def update_department(department_id: int, department: Department):
     departments = read_csv_department()
     for i, d in enumerate(departments):
@@ -42,7 +47,7 @@ def update_department(department_id: int, department: Department):
             return department
     raise HTTPException(status_code=404, detail="Departamento não encontrado")
 
-@router.delete("/departments/{department_id}")
+@router.delete("/{department_id}")
 def delete_department(department_id: int):
     departments = read_csv_department()
     for i, d in enumerate(departments):
@@ -64,7 +69,7 @@ def get_department_by_name(name: str):
     logger.info(f"Retornando departamentos com o nome: {name}")
     return filtered_departments
 
-@router.get("departments/zip")
+@router.get("/zip")
 def get_departments_zip():
     departments = read_csv_department()
     if not departments:
