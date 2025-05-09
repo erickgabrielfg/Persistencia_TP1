@@ -70,14 +70,12 @@ def get_departments_zip():
     if not departments:
         raise HTTPException(status_code=404, detail="Nenhum departamento encontrado")
 
-    # Gera o CSV em memória usando StringIO (texto)
     csv_string_io = StringIO()
     writer = csv.DictWriter(csv_string_io, fieldnames=departments[0].dict().keys())
     writer.writeheader()
     for dept in departments:
         writer.writerow(dept.dict())
 
-    # Cria o arquivo zip com o CSV dentro
     zip_buffer = BytesIO()
     with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
         zip_file.writestr("departments.csv", csv_string_io.getvalue())
