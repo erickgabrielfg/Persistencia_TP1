@@ -4,6 +4,10 @@ from model.employee import Employee
 from services.employee_service import read_csv_employee, write_csv_employee
 from services.department_service import read_csv_department
 from logger import logger
+from fastapi.responses import Response
+from io import BytesIO, StringIO
+import zipfile
+import csv
 
 router = APIRouter(prefix="/employees", tags=["Funcionários"])
 
@@ -53,3 +57,53 @@ def delete_employee(employee_id: int):
             logger.info(f"Funcionário com ID {employee_id} deletado com sucesso")
             return {"message": "Funcionário deletado com sucesso"}
     raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+
+@router.get("/employees/name", response_model=List[Employee])
+def get_employee_by_name(name: str):
+    employees = read_csv_employee()
+    if not name:
+        raise HTTPException(status_code=400, detail="Nome do funcionário não pode ser vazio")
+    filtered_employees = [e for e in employees if e.name == name]
+    if not filtered_employees:
+        raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+    logger.info(f"Retornando funcionários com o nome: {name}")
+    return filtered_employees
+
+@router.get("/employees/cpf", response_model=Employee)
+def get_employee_by_cpf(cpf: str):
+    employees = read_csv_employee()
+    if not cpf:
+        raise HTTPException(status_code=400, detail="CPF do funcionário não pode ser vazio")
+    for e in employees:
+        if e.cpf == cpf:
+            logger.info(f"Retornando funcionário com CPF: {cpf}")
+            return e
+    raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+
+@router.get("employees/zip")
+def get_employees_zip():
+    departments = read_csv_employee()
+    if not departments:
+        raise HTTPException(status_code=404, detail="Nenhum funcionário encontrado")
+
+    csv_string_io = StringIO()
+    writer = csv.DictWriter(csv_string_io, fieldnames=departments[0].dict().keys())
+    writer.writeheader()
+    for dept in departments:
+        writer.writerow(dept.dict())
+
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+        zip_file.writestr("employee.csv", csv_string_io.getvalue())
+
+    zip_buffer.seek(0)
+
+    logger.info("employee.csv convertido para .zip")
+
+    return Response(
+        content=zip_buffer.read(),
+        media_type="application/zip",
+        headers={"Content-Disposition": "attachment; filename=employee.zip"}
+    )
+
+
