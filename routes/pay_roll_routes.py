@@ -3,15 +3,28 @@ from typing import List
 from fastapi import APIRouter
 from model.pay_roll import PayRoll
 from logger import logger
-from services.pay_roll_service import read_csv_pay_roll, write_csv_pay_roll
+from services.pay_roll_service import read_csv_pay_roll, write_csv_pay_roll, ARQUIVO_PAY_ROLLS
 from services.employee_service import get_all_employees_ids
 from fastapi.responses import Response
 from io import BytesIO, StringIO
 import zipfile
 import csv
+from hashlib import sha256
 
 router = APIRouter(prefix="/pay_rolls", tags=["Folha de Pagamentos"])
 
+@router.get("/quantity")
+def count_pay_rolls():
+    count = len(read_csv_pay_roll())
+    return { "quantidade": count }
+
+@router.get("/SHA256")
+def calculate_hash_256():
+    with open(ARQUIVO_PAY_ROLLS, "rb") as file:
+        data = file.read()
+        encrypted_data = sha256(data).hexdigest()
+
+        return { "hash_sha_256": encrypted_data}
 @router.post("/pay_roll", response_model=PayRoll)
 def create_pay_roll(pay_roll: PayRoll):
     pay_rolls = read_csv_pay_roll()
@@ -24,11 +37,6 @@ def create_pay_roll(pay_roll: PayRoll):
     write_csv_pay_roll(pay_rolls)
     logger.info(f"Folha de pagamento com ID {pay_roll.id} adicionada com sucesso")
     return pay_roll
-
-@router.get("/quantity")
-def count_pay_rolls():
-    count = len(read_csv_pay_roll())
-    return { "quantidade": count }
 
 @router.get("/", response_model=List[PayRoll])
 def get_pay_rolls():
