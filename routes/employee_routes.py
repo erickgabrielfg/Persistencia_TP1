@@ -80,6 +80,17 @@ def get_employee_by_cpf(cpf: str):
             return e
     raise HTTPException(status_code=404, detail="Funcionário não encontrado")
 
+@router.get("/employees/department/{department_id}", response_model=List[Employee])
+def get_employees_by_department(department_id: int):
+    employees = read_csv_employee()
+    if not department_id:
+        raise HTTPException(status_code=400, detail="ID do departamento não pode ser vazio")
+    filtered_employees = [e for e in employees if e.id_department == department_id]
+    if not filtered_employees:
+        raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+    logger.info(f"Retornando funcionários do departamento com ID: {department_id}")
+    return filtered_employees
+
 @router.get("employees/zip")
 def get_employees_zip():
     departments = read_csv_employee()
