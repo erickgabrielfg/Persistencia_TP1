@@ -5,6 +5,10 @@ from model.pay_roll import PayRoll
 from logger import logger
 from services.pay_roll_service import read_csv_pay_roll, write_csv_pay_roll
 from services.employee_service import get_all_employees_ids
+from fastapi.responses import Response
+from io import BytesIO, StringIO
+import zipfile
+import csv
 
 router = APIRouter(prefix="/pay_rolls", tags=["Folha de Pagamentos"])
 
@@ -61,3 +65,31 @@ def delete_pay_roll(pay_roll_id: int):
             logger.info(f"Folha de pagamento com ID {pay_roll_id} deletada com sucesso")
             return {"message": "Folha de pagamento deletada com sucesso"}
     raise HTTPException(status_code=404, detail="Folha de pagamento não encontrada")
+
+@router.get("pay_roll/zip")
+def get_pay_roll_zip():
+    departments = read_csv_pay_roll()
+    if not departments:
+        raise HTTPException(status_code=404, detail="Nenhuma folha de pagamento encontrada")
+
+    csv_string_io = StringIO()
+    writer = csv.DictWriter(csv_string_io, fieldnames=departments[0].dict().keys())
+    writer.writeheader()
+    for dept in departments:
+        writer.writerow(dept.dict())
+
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+        zip_file.writestr("pay_roll.csv", csv_string_io.getvalue())
+
+    zip_buffer.seek(0)
+
+    logger.info("pay_roll.csv convertido para .zip")
+
+    return Response(
+        content=zip_buffer.read(),
+        media_type="application/zip",
+        headers={"Content-Disposition": "attachment; filename=pay_roll.zip"}
+    )
+
+
