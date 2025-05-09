@@ -1,14 +1,28 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
 from model.department import Department
-from services.department_service import read_csv_department, write_csv_department
+from services.department_service import read_csv_department, write_csv_department, ARQUIVO_DEPARTMENT
 from logger import logger
 from fastapi.responses import Response
 from io import BytesIO, StringIO
 import zipfile
 import csv
+from hashlib import sha256
 
 router = APIRouter(prefix="/departments", tags=["Departamentos"])
+
+@router.get("/quantity")
+def count_departments():
+    count = len(read_csv_department())
+    return {"quantidade": count}
+
+@router.get("/SHA256")
+def calculate_hash_256():
+    with open(ARQUIVO_DEPARTMENT, "rb") as file:
+        data = file.read()
+        encrypted_data = sha256(data).hexdigest()
+
+        return { "hash_sha_256": encrypted_data}
 
 @router.post("/department", response_model=Department)
 def create_department(department: Department):
@@ -17,11 +31,6 @@ def create_department(department: Department):
     write_csv_department(departments)
     logger.info("Departamento criado com sucesso")
     return department
-
-@router.get("/quantity")
-def count_departments():
-    count = len(read_csv_department())
-    return {"quantidade": count}
 
 @router.get("/", response_model=List[Department])
 def get_departments():

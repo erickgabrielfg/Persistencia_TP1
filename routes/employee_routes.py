@@ -1,15 +1,29 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
 from model.employee import Employee
-from services.employee_service import read_csv_employee, write_csv_employee
+from services.employee_service import read_csv_employee, write_csv_employee, ARQUIVO_EMPLOYEE
 from services.department_service import read_csv_department
 from logger import logger
 from fastapi.responses import Response
 from io import BytesIO, StringIO
 import zipfile
 import csv
+from hashlib import sha256
 
 router = APIRouter(prefix="/employees", tags=["Funcionários"])
+
+@router.get("/quantity")
+def count_employees():
+    count = len(read_csv_employee())
+    return { "quantidade": count }
+
+@router.get("/SHA256")
+def calculate_hash_256():
+    with open(ARQUIVO_EMPLOYEE, "rb") as file:
+        data = file.read()
+        encrypted_data = sha256(data).hexdigest()
+
+        return { "hash_sha_256": encrypted_data}
 
 @router.post("/employee", response_model=Employee)
 def create_employee(employee: Employee):
@@ -20,11 +34,6 @@ def create_employee(employee: Employee):
     write_csv_employee(employees)
     logger.info("Funcionário criado com sucesso")
     return employee
-
-@router.get("/quantity")
-def count_employees():
-    count = len(read_csv_employee())
-    return { "quantidade": count }
 
 @router.get("/", response_model=List[Employee])
 def get_employees():
