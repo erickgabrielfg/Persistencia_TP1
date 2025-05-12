@@ -10,6 +10,7 @@ from io import BytesIO, StringIO
 import zipfile
 import csv
 from hashlib import sha256
+import xml.etree.ElementTree as ET
 
 router = APIRouter(prefix="/pay_rolls", tags=["Folha de Pagamentos"])
 
@@ -25,6 +26,28 @@ def calculate_hash_256():
         encrypted_data = sha256(data).hexdigest()
 
         return { "hash_sha_256": encrypted_data}
+
+@router.get("/xml")
+def convert_csv_to_xml():
+    root = ET.Element("pay_rolls")
+
+    for row in read_csv_pay_roll():
+        pay_roll = ET.SubElement(root, "pay_roll")
+
+        for key, pr in row.dict().items():
+            field = ET.SubElement(pay_roll, key)
+            field.text = str(pr)
+
+    xml_bytes_io = BytesIO()
+    tree = ET.ElementTree(root)
+    tree.write(xml_bytes_io, encoding="UTF-8", xml_declaration=True)
+    xml_string = xml_bytes_io.getvalue()
+
+    return Response(
+        content=xml_string,
+        media_type="aplication/xml"
+    )
+
 @router.post("/pay_roll", response_model=PayRoll)
 def create_pay_roll(pay_roll: PayRoll):
     pay_rolls = read_csv_pay_roll()

@@ -8,6 +8,7 @@ from io import BytesIO, StringIO
 import zipfile
 import csv
 from hashlib import sha256
+import xml.etree.ElementTree as ET
 
 router = APIRouter(prefix="/departments", tags=["Departamentos"])
 
@@ -23,6 +24,27 @@ def calculate_hash_256():
         encrypted_data = sha256(data).hexdigest()
 
         return { "hash_sha_256": encrypted_data}
+
+@router.get("/xml")
+def convert_csv_to_xml():
+    root = ET.Element("departments")
+
+    for row in read_csv_department():
+        department = ET.SubElement(root, "department")
+
+        for key, dp in row.dict().items():
+            field = ET.SubElement(department, key)
+            field.text = str(dp)
+
+    xml_bytes_io = BytesIO()
+    tree = ET.ElementTree(root)
+    tree.write(xml_bytes_io, encoding="UTF-8", xml_declaration=True)
+    xml_string = xml_bytes_io.getvalue()
+
+    return Response(
+        content=xml_string,
+        media_type="aplication/xml"
+    )
 
 @router.post("/department", response_model=Department)
 def create_department(department: Department):
