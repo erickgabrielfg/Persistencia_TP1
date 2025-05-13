@@ -9,3 +9,13 @@ id,id_department,name,cpf,position,admission_date
 8,5,Fábio Costa,89012345677,Representante Comercial,2022-07-03
 9,6,Tatiana Amorim,90123456788,Advogada,2020-04-29
 10,3,Carlos Eduardo,01234567899,Desenvolvedor Frontend,2021-12-20
+11,2,Renato Borges,11223344556,Assistente Financeiro,2023-08-10
+12,4,Luciana Ferreira,22334455667,Diretora de Arte,2022-10-05
+13,6,Gabriel Martins,33445566778,Estagiário Jurídico,2024-01-15
+14,5,Camila Albuquerque,44556677889,Gerente de Contas,2021-03-29
+15,1,Pedro Henrique,55667788990,Analista de Benefícios,2023-12-01
+16,3,Juliana Castro,66778899001,Engenheira de Software,2022-06-18
+17,2,Thiago Ramos,77889900112,Auditor Fiscal,2020-10-30
+18,6,Marina Duarte,88990011223,Consultora Jurídica,2021-07-25
+19,4,Felipe Andrade,99001122334,UX Researcher,2023-04-12
+20,5,Roberta Lima,10111213141,Coordenadora de Vendas,2022-02-08

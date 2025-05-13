@@ -95,3 +95,24 @@
 2025-05-09 09:31:06,560 - INFO - Retornando departamentos comprimidos em gzip
 2025-05-09 14:18:19,413 - INFO - Retornando todos os departamentos
 2025-05-12 13:51:41,818 - INFO - Retornando todas as folhas de pagamento
+2025-05-13 18:51:04,594 - INFO - Departamento criado com sucesso
+2025-05-13 18:52:16,602 - INFO - Funcionário criado com sucesso
+2025-05-13 18:53:39,748 - INFO - Funcionário criado com sucesso
+2025-05-13 18:54:01,763 - INFO - Funcionário criado com sucesso
+2025-05-13 18:54:16,937 - INFO - Funcionário criado com sucesso
+2025-05-13 18:54:27,289 - INFO - Funcionário criado com sucesso
+2025-05-13 18:54:40,791 - INFO - Funcionário criado com sucesso
+2025-05-13 18:54:57,250 - INFO - Funcionário criado com sucesso
+2025-05-13 18:55:11,790 - INFO - Funcionário criado com sucesso
+2025-05-13 18:55:28,888 - INFO - Funcionário criado com sucesso
+2025-05-13 18:55:38,794 - INFO - Funcionário criado com sucesso
+2025-05-13 19:03:49,739 - INFO - Retornando todos os funcionários
+2025-05-13 19:16:52,698 - INFO - Folha de pagamento com ID 2 adicionada com sucesso
+2025-05-13 19:17:07,018 - INFO - Folha de pagamento com ID 3 adicionada com sucesso
+2025-05-13 19:17:21,500 - INFO - Folha de pagamento com ID 4 adicionada com sucesso
+2025-05-13 19:17:38,149 - INFO - Folha de pagamento com ID 5 adicionada com sucesso
+2025-05-13 19:17:49,453 - INFO - Folha de pagamento com ID 6 adicionada com sucesso
+2025-05-13 19:18:22,382 - INFO - Folha de pagamento com ID 7 adicionada com sucesso
+2025-05-13 19:18:30,545 - INFO - Folha de pagamento com ID 8 adicionada com sucesso
+2025-05-13 19:48:10,194 - INFO - Retornando todas as folhas de pagamento
+2025-05-13 19:48:24,416 - INFO - Retornando folha de pagamento com ID: 1
