@@ -62,14 +62,6 @@ def get_employees():
     logger.info("Retornando todos os funcionários")
     return read_csv_employee()
 
-@router.get("/{employee_id}", response_model=Employee)
-def get_employee(employee_id: int):
-    for e in read_csv_employee():
-        if e.id == employee_id:
-            logger.info(f"Retornando funcionário de ID: {employee_id}")
-            return e
-    raise HTTPException(status_code=404, detail="Funcionário não encontrado")
-
 @router.put("/{employee_id}", response_model=Employee)
 def update_employee(employee_id: int, employee: Employee):
     if not any(d.id == employee.id_department for d in read_csv_department()):
@@ -153,4 +145,10 @@ def get_employees_zip():
         headers={"Content-Disposition": "attachment; filename=employee.zip"}
     )
 
-
+@router.get("/{employee_id}", response_model=Employee)
+def get_employee(employee_id: int):
+    for e in read_csv_employee():
+        if e.id == employee_id:
+            logger.info(f"Retornando funcionário de ID: {employee_id}")
+            return e
+    raise HTTPException(status_code=404, detail="Funcionário não encontrado")

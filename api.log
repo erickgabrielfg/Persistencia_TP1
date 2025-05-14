@@ -116,3 +116,22 @@
 2025-05-13 19:18:30,545 - INFO - Folha de pagamento com ID 8 adicionada com sucesso
 2025-05-13 19:48:10,194 - INFO - Retornando todas as folhas de pagamento
 2025-05-13 19:48:24,416 - INFO - Retornando folha de pagamento com ID: 1
+2025-05-14 16:03:54,692 - INFO - Retornando departamento de ID: 1
+2025-05-14 16:04:14,483 - INFO - Retornando departamentos com o nome: Recursos Humanos
+2025-05-14 16:11:55,637 - INFO - Retornando todos os funcionários
+2025-05-14 16:12:23,499 - INFO - Retornando departamentos com o nome: Recursos Humanos
+2025-05-14 16:16:27,944 - INFO - Retornando todos os departamentos
+2025-05-14 16:16:37,128 - INFO - Retornando departamento de ID: 1
+2025-05-14 16:16:58,937 - INFO - Retornando departamentos com o nome: Recursos Humanos
+2025-05-14 16:17:10,876 - INFO - Departamento com ID 8 deletado com sucesso
+2025-05-14 16:18:18,141 - INFO - Departamento com ID 11 atualizado com sucesso
+2025-05-14 16:19:03,429 - INFO - Folha de pagamento com ID 7 deletada com sucesso
+2025-05-14 16:19:26,963 - INFO - Retornando folha de pagamento com ID: 6
+2025-05-14 16:19:38,613 - INFO - Retornando folha de pagamento com ID: 8
+2025-05-14 16:26:05,313 - INFO - Funcionário com ID 20 deletado com sucesso
+2025-05-14 20:23:26,387 - INFO - department.csv convertido para .zip
+2025-05-14 20:27:35,670 - INFO - Retornando departamentos com o nome: Logística
+2025-05-14 20:29:22,638 - INFO - Retornando funcionário de ID: 1
+2025-05-14 20:29:33,118 - INFO - Retornando funcionários com o nome: Ana Paula
+2025-05-14 20:29:42,117 - INFO - employee.csv convertido para .zip
+2025-05-14 20:30:11,788 - INFO - Retornando funcionário com CPF: 99001122334

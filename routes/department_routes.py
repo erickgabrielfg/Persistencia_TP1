@@ -12,6 +12,32 @@ import xml.etree.ElementTree as ET
 
 router = APIRouter(prefix="/departments", tags=["Departamentos"])
 
+@router.get("/zip")
+def get_departments_zip():
+    departments = read_csv_department()
+    if not departments:
+        raise HTTPException(status_code=404, detail="Nenhum departamento encontrado")
+
+    csv_string_io = StringIO()
+    writer = csv.DictWriter(csv_string_io, fieldnames=departments[0].dict().keys())
+    writer.writeheader()
+    for dept in departments:
+        writer.writerow(dept.dict())
+
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+        zip_file.writestr("departments.csv", csv_string_io.getvalue())
+
+    zip_buffer.seek(0)
+
+    logger.info("department.csv convertido para .zip")
+
+    return Response(
+        content=zip_buffer.read(),
+        media_type="application/zip",
+        headers={"Content-Disposition": "attachment; filename=departments.zip"}
+    )
+
 @router.get("/quantity")
 def count_departments():
     count = len(read_csv_department())
@@ -99,31 +125,5 @@ def get_department_by_name(name: str):
         raise HTTPException(status_code=404, detail="Departamento não encontrado")
     logger.info(f"Retornando departamentos com o nome: {name}")
     return filtered_departments
-
-@router.get("/zip")
-def get_departments_zip():
-    departments = read_csv_department()
-    if not departments:
-        raise HTTPException(status_code=404, detail="Nenhum departamento encontrado")
-
-    csv_string_io = StringIO()
-    writer = csv.DictWriter(csv_string_io, fieldnames=departments[0].dict().keys())
-    writer.writeheader()
-    for dept in departments:
-        writer.writerow(dept.dict())
-
-    zip_buffer = BytesIO()
-    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
-        zip_file.writestr("departments.csv", csv_string_io.getvalue())
-
-    zip_buffer.seek(0)
-
-    logger.info("department.csv convertido para .zip")
-
-    return Response(
-        content=zip_buffer.read(),
-        media_type="application/zip",
-        headers={"Content-Disposition": "attachment; filename=departments.zip"}
-    )
 
 

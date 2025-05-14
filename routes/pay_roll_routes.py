@@ -66,14 +66,6 @@ def get_pay_rolls():
     logger.info("Retornando todas as folhas de pagamento")
     return read_csv_pay_roll()
 
-@router.get("/{pay_roll_id}", response_model=PayRoll)
-def get_pay_roll(pay_roll_id: int):
-    for pr in read_csv_pay_roll():
-        if pr.id == pay_roll_id:
-            logger.info(f"Retornando folha de pagamento com ID: {pay_roll_id}")
-            return pr
-    raise HTTPException(status_code=404, detail="Folha de Pagamento não encontrada")
-
 @router.put("/{pay_roll_id}", response_model=PayRoll)
 def update_pay_roll(pay_roll_id: int, pay_roll: PayRoll):
     pay_rolls = read_csv_pay_roll()
@@ -128,4 +120,10 @@ def get_pay_roll_zip():
         headers={"Content-Disposition": "attachment; filename=pay_roll.zip"}
     )
 
-
+@router.get("/{pay_roll_id}", response_model=PayRoll)
+def get_pay_roll(pay_roll_id: int):
+    for pr in read_csv_pay_roll():
+        if pr.id == pay_roll_id:
+            logger.info(f"Retornando folha de pagamento com ID: {pay_roll_id}")
+            return pr
+    raise HTTPException(status_code=404, detail="Folha de Pagamento não encontrada")
