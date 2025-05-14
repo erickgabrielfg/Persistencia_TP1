@@ -116,3 +116,6 @@
 2025-05-13 19:18:30,545 - INFO - Folha de pagamento com ID 8 adicionada com sucesso
 2025-05-13 19:48:10,194 - INFO - Retornando todas as folhas de pagamento
 2025-05-13 19:48:24,416 - INFO - Retornando folha de pagamento com ID: 1
+2025-05-14 15:42:05,664 - INFO - Departamento criado com sucesso
+2025-05-14 15:42:50,401 - INFO - Retornando todos os departamentos
+2025-05-14 15:43:14,728 - INFO - Retornando todos os funcionários

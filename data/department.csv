@@ -11,3 +11,4 @@ id,name,manager,location,number_of_employees
 9,Pesquisa,Hugo Silveira,Florianópolis,2
 10,Suporte,Renata Alves,Recife,4
 11,Logística,Marcos Lima,Centro,14
+0,string,string,string,0
