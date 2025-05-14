@@ -16,6 +16,9 @@ router = APIRouter(prefix="/employees", tags=["Funcionários"])
 @router.get("/quantity")
 def count_employees():
     count = len(read_csv_employee())
+
+    logger.info("Retornando quantidade de funcionários")
+
     return { "quantidade": count }
 
 @router.get("/SHA256")
@@ -23,6 +26,8 @@ def calculate_hash_256():
     with open(ARQUIVO_EMPLOYEE, "rb") as file:
         data = file.read()
         encrypted_data = sha256(data).hexdigest()
+
+        logger.info("Calculando o hash de funcionários")
 
         return { "hash_sha_256": encrypted_data}
 
@@ -41,6 +46,8 @@ def convert_csv_to_xml():
     tree = ET.ElementTree(root)
     tree.write(xml_bytes_io, encoding="UTF-8", xml_declaration=True)
     xml_string = xml_bytes_io.getvalue()
+
+    logger.info("Convertendo para xml o csv de funcionários")
 
     return Response(
         content=xml_string,

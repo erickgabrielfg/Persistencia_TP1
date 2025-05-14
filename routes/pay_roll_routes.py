@@ -17,6 +17,9 @@ router = APIRouter(prefix="/pay_rolls", tags=["Folha de Pagamentos"])
 @router.get("/quantity")
 def count_pay_rolls():
     count = len(read_csv_pay_roll())
+
+    logger.info("Retornando quantidade de folha de pagamentos")
+
     return { "quantidade": count }
 
 @router.get("/SHA256")
@@ -24,6 +27,8 @@ def calculate_hash_256():
     with open(ARQUIVO_PAY_ROLLS, "rb") as file:
         data = file.read()
         encrypted_data = sha256(data).hexdigest()
+
+        logger.info("Calculando o hash de folha de pagamentos")
 
         return { "hash_sha_256": encrypted_data}
 
@@ -42,6 +47,8 @@ def convert_csv_to_xml():
     tree = ET.ElementTree(root)
     tree.write(xml_bytes_io, encoding="UTF-8", xml_declaration=True)
     xml_string = xml_bytes_io.getvalue()
+
+    logger.info("Convertendo para xml o csv de folha de pagamentos")
 
     return Response(
         content=xml_string,

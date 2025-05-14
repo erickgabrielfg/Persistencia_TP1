@@ -1,12 +1,12 @@
-2025-05-06 20:45:34,080 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-06 20:45:34,080 - INFO - Creating department: id=1 name='Tecnologia da Informaï¿½ï¿½o' manager='Joï¿½o Silva' location='Sï¿½o Paulo' number_of_employees=25
 2025-05-06 20:45:41,959 - INFO - Fetching all departments
 2025-05-06 20:45:51,506 - INFO - Fetching all departments
 2025-05-06 20:45:53,268 - INFO - Fetching all departments
 2025-05-06 20:46:34,765 - INFO - Fetching all departments
-2025-05-06 20:49:53,708 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-06 20:49:53,708 - INFO - Creating department: id=1 name='Tecnologia da Informaï¿½ï¿½o' manager='Joï¿½o Silva' location='Sï¿½o Paulo' number_of_employees=25
 2025-05-06 20:53:10,981 - INFO - Creating department: id=1 name='Tecnologia da Informacao' manager='Joao Silva' location='Sao Paulo' number_of_employees=25
 2025-05-06 20:53:25,361 - INFO - Creating department: id=1 name='Tecnologia da Informacao' manager='Joao Silva' location='Sao Paulo' number_of_employees=25
-2025-05-06 21:03:03,745 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-06 21:03:03,745 - INFO - Creating department: id=1 name='Tecnologia da Informaï¿½ï¿½o' manager='Joï¿½o Silva' location='Sï¿½o Paulo' number_of_employees=25
 2025-05-06 21:03:46,068 - INFO - Updating department with ID: 1
 2025-05-06 21:04:51,529 - INFO - Deleting department with ID: 1
 2025-05-06 21:05:14,560 - INFO - Creating department: id=1 name='Tecnologia da Informacao' manager='Joao Silva' location='Sao Paulo' number_of_employees=25
@@ -23,24 +23,24 @@
 2025-05-06 21:13:07,368 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
 2025-05-06 21:13:34,797 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
 2025-05-06 21:15:15,865 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
-2025-05-06 21:15:15,865 - ERROR - Erro ao criar departamento: 500: Arquivo XML de departamentos está corrompido.
+2025-05-06 21:15:15,865 - ERROR - Erro ao criar departamento: 500: Arquivo XML de departamentos estï¿½ corrompido.
 2025-05-06 21:16:16,487 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
 2025-05-06 21:16:16,497 - ERROR - Erro ao criar departamento: cannot serialize 22 (type int)
 2025-05-06 21:16:29,096 - INFO - Fetching all departments
-2025-05-06 21:16:29,098 - ERROR - Erro ao ler departamentos: 500: Arquivo XML de departamentos está corrompido.
+2025-05-06 21:16:29,098 - ERROR - Erro ao ler departamentos: 500: Arquivo XML de departamentos estï¿½ corrompido.
 2025-05-06 21:19:47,188 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
 2025-05-06 21:19:47,196 - ERROR - Erro ao criar departamento: cannot serialize 22 (type int)
 2025-05-06 21:23:26,639 - INFO - Creating department: id=5 name='Pesquisa e Desenvolvimento' manager='Bruno Martins' location='Campinas' number_of_employees=22
-2025-05-06 21:23:48,441 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-06 21:23:48,441 - INFO - Creating department: id=1 name='Tecnologia da Informaï¿½ï¿½o' manager='Joï¿½o Silva' location='Sï¿½o Paulo' number_of_employees=25
 2025-05-06 21:27:55,162 - INFO - Fetching all departments
 2025-05-06 21:28:04,918 - INFO - Deleting department with ID: 5
 2025-05-06 21:28:20,747 - INFO - Fetching department with ID: 1
 2025-05-06 21:28:45,686 - INFO - Updating department with ID: 1
-2025-05-07 10:57:45,712 - INFO - Creating department: id=1 name='Tecnologia da Informação' manager='João Silva' location='São Paulo' number_of_employees=25
+2025-05-07 10:57:45,712 - INFO - Creating department: id=1 name='Tecnologia da Informaï¿½ï¿½o' manager='Joï¿½o Silva' location='Sï¿½o Paulo' number_of_employees=25
 2025-05-07 10:58:04,257 - INFO - Buscando todos os departamentos
-2025-05-07 10:58:04,259 - ERROR - Erro ao ler departamentos: 500: Arquivo XML de departamentos está corrompido.
+2025-05-07 10:58:04,259 - ERROR - Erro ao ler departamentos: 500: Arquivo XML de departamentos estï¿½ corrompido.
 2025-05-07 10:58:29,484 - INFO - Buscando todos os departamentos
-2025-05-07 10:58:29,486 - ERROR - Erro ao ler departamentos: 500: Arquivo XML de departamentos está corrompido.
+2025-05-07 10:58:29,486 - ERROR - Erro ao ler departamentos: 500: Arquivo XML de departamentos estï¿½ corrompido.
 2025-05-07 11:07:35,509 - INFO - Buscando todos os departamentos
 2025-05-07 11:14:15,095 - INFO - Creating department: id=1 name='Tecnologia da Informacao' manager='Joao Silva' location='Sao Paulo' number_of_employees=25
 2025-05-07 11:17:30,080 - INFO - Creating department: id=1 name='Tecnologia da Informacao' manager='Joao Silva' location='Sao Paulo' number_of_employees=25
@@ -48,25 +48,25 @@
 2025-05-07 11:18:37,200 - INFO - Buscando todos os departamentos
 2025-05-07 11:18:51,355 - INFO - Buscando departamento com ID: 1
 2025-05-07 11:20:11,581 - INFO - Creating employee: id=1 id_department=2 name='Ana Oliveira' cpf='123.456.789-00' position='Analista de Sistemas' admission_date=datetime.date(2022, 8, 15)
-2025-05-07 11:20:11,582 - ERROR - Erro ao criar funcionário: no element found: line 1, column 0
+2025-05-07 11:20:11,582 - ERROR - Erro ao criar funcionï¿½rio: no element found: line 1, column 0
 2025-05-07 11:22:59,212 - INFO - Creating employee: id=1 id_department=2 name='Ana Oliveira' cpf='123.456.789-00' position='Analista de Sistemas' admission_date=datetime.date(2022, 8, 15)
-2025-05-07 11:22:59,213 - ERROR - Erro ao criar funcionário: no element found: line 1, column 0
+2025-05-07 11:22:59,213 - ERROR - Erro ao criar funcionï¿½rio: no element found: line 1, column 0
 2025-05-07 11:23:51,210 - INFO - Creating employee: id=1 id_department=1 name='Ana Oliveira' cpf='123.456.789-00' position='Analista de Sistemas' admission_date=datetime.date(2022, 8, 15)
-2025-05-07 11:23:51,212 - ERROR - Erro ao criar funcionário: no element found: line 1, column 0
+2025-05-07 11:23:51,212 - ERROR - Erro ao criar funcionï¿½rio: no element found: line 1, column 0
 2025-05-07 11:25:17,849 - INFO - Creating employee: id=1 id_department=1 name='Ana Oliveira' cpf='123.456.789-00' position='Analista de Sistemas' admission_date=datetime.date(2022, 8, 15)
-2025-05-07 11:25:17,849 - ERROR - Erro ao criar funcionário: no element found: line 1, column 0
+2025-05-07 11:25:17,849 - ERROR - Erro ao criar funcionï¿½rio: no element found: line 1, column 0
 2025-05-07 11:26:43,867 - INFO - Creating employee: id=1 id_department=1 name='Ana Oliveira' cpf='123.456.789-00' position='Analista de Sistemas' admission_date=datetime.date(2022, 8, 15)
-2025-05-07 11:26:43,868 - ERROR - Erro ao criar funcionário: no element found: line 1, column 0
+2025-05-07 11:26:43,868 - ERROR - Erro ao criar funcionï¿½rio: no element found: line 1, column 0
 2025-05-07 11:27:01,961 - INFO - Creating employee: id=1 id_department=1 name='Ana Oliveira' cpf='123.456.789-00' position='Analista de Sistemas' admission_date=datetime.date(2022, 8, 15)
-2025-05-07 11:27:01,979 - ERROR - Erro ao criar funcionário: cannot serialize datetime.date(2022, 8, 15) (type date)
+2025-05-07 11:27:01,979 - ERROR - Erro ao criar funcionï¿½rio: cannot serialize datetime.date(2022, 8, 15) (type date)
 2025-05-07 11:29:16,597 - INFO - Creating employee: id=1 id_department=1 name='Ana Oliveira' cpf='123.456.789-00' position='Analista de Sistemas' admission_date=datetime.date(2022, 8, 15)
-2025-05-07 11:29:16,599 - ERROR - Erro ao criar funcionário: cannot serialize datetime.date(2022, 8, 15) (type date)
+2025-05-07 11:29:16,599 - ERROR - Erro ao criar funcionï¿½rio: cannot serialize datetime.date(2022, 8, 15) (type date)
 2025-05-07 11:30:55,587 - INFO - Creating employee: id=1 id_department=1 name='Ana Oliveira' cpf='123.456.789-00' position='Analista de Sistemas' admission_date=datetime.date(2022, 8, 15)
-2025-05-07 11:33:12,417 - INFO - Deletando funcionário com ID: 1
-2025-05-07 11:33:19,719 - INFO - Buscando todos os funcionários
-2025-05-07 11:36:09,231 - INFO - Atualizando funcionário com ID: 1
+2025-05-07 11:33:12,417 - INFO - Deletando funcionï¿½rio com ID: 1
+2025-05-07 11:33:19,719 - INFO - Buscando todos os funcionï¿½rios
+2025-05-07 11:36:09,231 - INFO - Atualizando funcionï¿½rio com ID: 1
 2025-05-07 21:02:35,944 - INFO - Departamentos criados em lote com sucesso
-2025-05-07 21:03:30,343 - INFO - Funcionários criados em lote com sucesso
+2025-05-07 21:03:30,343 - INFO - Funcionï¿½rios criados em lote com sucesso
 2025-05-07 21:07:12,258 - INFO - Folhas de pagamento criadas em lote com sucesso
 2025-05-07 21:07:12,274 - INFO - Folhas de pagamento criadas em lote com sucesso
 2025-05-07 21:07:12,289 - INFO - Folhas de pagamento criadas em lote com sucesso
@@ -96,17 +96,17 @@
 2025-05-09 14:18:19,413 - INFO - Retornando todos os departamentos
 2025-05-12 13:51:41,818 - INFO - Retornando todas as folhas de pagamento
 2025-05-13 18:51:04,594 - INFO - Departamento criado com sucesso
-2025-05-13 18:52:16,602 - INFO - Funcionário criado com sucesso
-2025-05-13 18:53:39,748 - INFO - Funcionário criado com sucesso
-2025-05-13 18:54:01,763 - INFO - Funcionário criado com sucesso
-2025-05-13 18:54:16,937 - INFO - Funcionário criado com sucesso
-2025-05-13 18:54:27,289 - INFO - Funcionário criado com sucesso
-2025-05-13 18:54:40,791 - INFO - Funcionário criado com sucesso
-2025-05-13 18:54:57,250 - INFO - Funcionário criado com sucesso
-2025-05-13 18:55:11,790 - INFO - Funcionário criado com sucesso
-2025-05-13 18:55:28,888 - INFO - Funcionário criado com sucesso
-2025-05-13 18:55:38,794 - INFO - Funcionário criado com sucesso
-2025-05-13 19:03:49,739 - INFO - Retornando todos os funcionários
+2025-05-13 18:52:16,602 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:53:39,748 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:54:01,763 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:54:16,937 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:54:27,289 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:54:40,791 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:54:57,250 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:55:11,790 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:55:28,888 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 18:55:38,794 - INFO - Funcionï¿½rio criado com sucesso
+2025-05-13 19:03:49,739 - INFO - Retornando todos os funcionï¿½rios
 2025-05-13 19:16:52,698 - INFO - Folha de pagamento com ID 2 adicionada com sucesso
 2025-05-13 19:17:07,018 - INFO - Folha de pagamento com ID 3 adicionada com sucesso
 2025-05-13 19:17:21,500 - INFO - Folha de pagamento com ID 4 adicionada com sucesso
@@ -116,9 +116,19 @@
 2025-05-13 19:18:30,545 - INFO - Folha de pagamento com ID 8 adicionada com sucesso
 2025-05-13 19:48:10,194 - INFO - Retornando todas as folhas de pagamento
 2025-05-13 19:48:24,416 - INFO - Retornando folha de pagamento com ID: 1
+2025-05-14 15:42:05,664 - INFO - Departamento criado com sucesso
+2025-05-14 15:42:50,401 - INFO - Retornando todos os departamentos
+2025-05-14 15:43:14,728 - INFO - Retornando todos os funcionÃ¡rios
+2025-05-14 15:52:23,860 - INFO - Retornando todos os funcionÃ¡rios
+2025-05-14 15:59:25,064 - INFO - FuncionÃ¡rio criado com sucesso
+2025-05-14 15:59:38,585 - INFO - Retornando todos os departamentos
+2025-05-14 15:59:58,115 - INFO - Retornando quantidade de departamentos
+2025-05-14 16:02:16,979 - INFO - Retornando funcionÃ¡rio de ID: 1
+2025-05-14 16:02:31,888 - INFO - Calculando o hash de folha de pagamentos
+2025-05-14 16:02:48,791 - INFO - Convertendo para xml o csv de funcionÃ¡rios
 2025-05-14 16:03:54,692 - INFO - Retornando departamento de ID: 1
 2025-05-14 16:04:14,483 - INFO - Retornando departamentos com o nome: Recursos Humanos
-2025-05-14 16:11:55,637 - INFO - Retornando todos os funcionários
+2025-05-14 16:11:55,637 - INFO - Retornando todos os funcionï¿½rios
 2025-05-14 16:12:23,499 - INFO - Retornando departamentos com o nome: Recursos Humanos
 2025-05-14 16:16:27,944 - INFO - Retornando todos os departamentos
 2025-05-14 16:16:37,128 - INFO - Retornando departamento de ID: 1
@@ -128,11 +138,11 @@
 2025-05-14 16:19:03,429 - INFO - Folha de pagamento com ID 7 deletada com sucesso
 2025-05-14 16:19:26,963 - INFO - Retornando folha de pagamento com ID: 6
 2025-05-14 16:19:38,613 - INFO - Retornando folha de pagamento com ID: 8
-2025-05-14 16:26:05,313 - INFO - Funcionário com ID 20 deletado com sucesso
+2025-05-14 16:26:05,313 - INFO - Funcionï¿½rio com ID 20 deletado com sucesso
 2025-05-14 20:23:26,387 - INFO - department.csv convertido para .zip
-2025-05-14 20:27:35,670 - INFO - Retornando departamentos com o nome: Logística
-2025-05-14 20:29:22,638 - INFO - Retornando funcionário de ID: 1
-2025-05-14 20:29:33,118 - INFO - Retornando funcionários com o nome: Ana Paula
+2025-05-14 20:27:35,670 - INFO - Retornando departamentos com o nome: Logï¿½stica
+2025-05-14 20:29:22,638 - INFO - Retornando funcionï¿½rio de ID: 1
+2025-05-14 20:29:33,118 - INFO - Retornando funcionï¿½rios com o nome: Ana Paula
 2025-05-14 20:29:42,117 - INFO - employee.csv convertido para .zip
-2025-05-14 20:30:11,788 - INFO - Retornando funcionário com CPF: 99001122334
+2025-05-14 20:30:11,788 - INFO - Retornando funcionï¿½rio com CPF: 99001122334
 2025-05-14 20:31:19,279 - INFO - pay_roll.csv convertido para .zip
