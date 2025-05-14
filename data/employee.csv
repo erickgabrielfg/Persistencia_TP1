@@ -19,3 +19,4 @@ id,id_department,name,cpf,position,admission_date
 18,6,Marina Duarte,88990011223,Consultora Jurídica,2021-07-25
 19,4,Felipe Andrade,99001122334,UX Researcher,2023-04-12
 20,5,Roberta Lima,10111213141,Coordenadora de Vendas,2022-02-08
+21,1,string,string,string,2025-05-14

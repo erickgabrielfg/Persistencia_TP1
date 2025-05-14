@@ -119,3 +119,10 @@
 2025-05-14 15:42:05,664 - INFO - Departamento criado com sucesso
 2025-05-14 15:42:50,401 - INFO - Retornando todos os departamentos
 2025-05-14 15:43:14,728 - INFO - Retornando todos os funcionários
+2025-05-14 15:52:23,860 - INFO - Retornando todos os funcionários
+2025-05-14 15:59:25,064 - INFO - Funcionário criado com sucesso
+2025-05-14 15:59:38,585 - INFO - Retornando todos os departamentos
+2025-05-14 15:59:58,115 - INFO - Retornando quantidade de departamentos
+2025-05-14 16:02:16,979 - INFO - Retornando funcionário de ID: 1
+2025-05-14 16:02:31,888 - INFO - Calculando o hash de folha de pagamentos
+2025-05-14 16:02:48,791 - INFO - Convertendo para xml o csv de funcionários
